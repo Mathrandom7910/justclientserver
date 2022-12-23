@@ -1,0 +1,17 @@
+{
+  "name": "justclientserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./js/index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "run": "node",
+    "dev": "npx nodemon ./src/index.ts --ignore ./little-db/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@mathrandom7910/little-db": "^1.1.7"
+  }
+}

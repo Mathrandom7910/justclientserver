@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>Test</title>
+
+        <style>
+            html,
+            body {
+                background-color: rgb(61, 61, 61);
+            }
+        </style>
+    </head>
+    <body>
+        <input id="usr" placeholder="accessCode" value="acnw09szdhonle0q56cvfylrj8u8lgiobkmuomgdrcdzlczh6qmbw54f1w5qpsw8qayr9ut2w9bumak6phq5skzo0accsofl97kx17it5xq1hoc769qxwzmbtfsgjahynqbhoa5kt57014px6t60ug4yzaz357ohkm25b1b5lymj555e8028f9zemch8ve2jaxs7g7n948s82icq8a1dwjnp3vbh0wtg0pngqtxfvoos2exjvdsi6b4jyyuij289:1.0.0">
+
+        <button id="signup">Sign</button>
+
+        <br>
+        <br>
+
+        <input id="jcsrc" placeholder="put src here" type="file">
+        <button id="pSrc">Post Src</button>
+
+        <br>
+        <br>
+
+        <button id="getSrc">Get SRC</button>
+
+        <script>
+            const usr = document.getElementById("usr");
+            const pwd = document.getElementById("pwd");
+            const sU = document.getElementById("signup");
+            const jcSrc = document.getElementById("jcsrc");
+            const pSrc = document.getElementById("pSrc");
+            const getSrc = document.getElementById("getSrc");
+            
+            sU.onclick = () => {
+                fetch("/auth",
+                {
+                    body: JSON.stringify(
+                        {
+                            accessId: usr.value
+                        }),
+                        
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }).then(r => r.json().then(console.log))
+            }
+
+
+
+            pSrc.onclick = () => {
+                const file = jcSrc.files[0];
+                if(!file) return;
+                const reader = new FileReader();
+                reader.readAsText(file, "UTF-8");
+                reader.onload = () => {
+                    fetch("/newjustclient",
+                    {
+                        body: JSON.stringify(
+                            {
+                                accessId: usr.value,
+                                code: reader.result
+                            }),
+                            
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }).then(r => r.json().then(console.log));
+                }
+            }
+
+            getSrc.onclick = () => {
+                fetch("/justclient",
+                {
+                    body: JSON.stringify(
+                        {
+                            accessId: usr.value
+                        }),
+                        
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }).then(r => r.text().then(console.log))
+            }
+        </script>
+    </body>
+</html>
